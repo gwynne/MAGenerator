@@ -38,13 +38,14 @@ NSMutableArray *MAGeneratorMakeCleanupArray(void)
 
 
 @interface _MAGeneratorEnumerator : NSEnumerator
-{
-    id (^_generator)(void);
-}
 - (id)initWithGenerator: (id (^)(void))generator;
+@property(nonatomic,copy) id (^generator)(void);
 @end
 
 @implementation _MAGeneratorEnumerator
+{
+    id (^_generator)(void);
+}
 
 - (id)initWithGenerator: (id (^)(void))generator
 {
@@ -55,7 +56,7 @@ NSMutableArray *MAGeneratorMakeCleanupArray(void)
 
 - (id)nextObject
 {
-    return _generator();
+    return (self.generator)();
 }
 
 @end
